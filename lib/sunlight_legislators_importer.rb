@@ -1,15 +1,18 @@
 require 'csv'
+require_relative '../app/models/legislator'
+require 'byebug'
 
 class SunlightLegislatorsImporter
-  def self.import(filename)
+  def self.import(filename=File.dirname(__FILE__) + "/../db/data/legislators.csv")
     csv = CSV.new(File.open(filename), :headers => true)
     csv.each do |row|
+       @data = {}
       row.each do |field, value|
-        # TODO: begin
-        raise NotImplementedError, "TODO: figure out what to do with this row and do it!"
-        # TODO: end
+         @data[field] = value 
       end
+      legislator = Legislator.create!(@data) 
     end
+ 
   end
 end
 
@@ -23,3 +26,7 @@ end
 # rescue NotImplementedError => e
 #   $stderr.puts "You shouldn't be running this until you've modified it with your implementation!"
 # end
+
+        # TODO: begin
+        # raise NotImplementedError, "TODO: figure out what to do with this row and do it!"
+        # TODO: end
